@@ -1,24 +1,40 @@
 package org.vimusama;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "\"Users\"")
 public class User {
-    private String id;
+    @Id
+    private int id;
+
+    @Column(name = "\"userName\"")
     private String userName;
+    @Column(name = "\"hashedPassword\"")
     private String hashedPassword;
     private String role;
+    @Column(name = "\"isActive\"")
     private Boolean isActive;
 
-    public User(String userName, String hashedPassword, String role, Boolean isActive) {
+    public User(){
+        //for hibernate
+    }
+    public User(int id, String userName, String hashedPassword, String role, Boolean isActive) {
+        this.id= id ;
         this.userName = userName;
         this.hashedPassword = hashedPassword;
         this.role = role;
         this.isActive = isActive;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
