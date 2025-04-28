@@ -1,43 +1,42 @@
-# 📚 ORM in Java: Learning and Understanding
+# ORM in Java: Learning and Understanding
 
-This project is focused on understanding the **concepts of ORM (Object Relational Mapping)** in Java, and exploring the nuances it offers.
-
----
-
-## 📖 What I Learned
-
-### 1) **JPA (Jakarta Persistence API)**
-- JPA is the *rulebook* that ORM tools must follow.
-- Before JPA, every ORM tool worked differently, making projects harder to maintain.
-- JPA provides a **uniform way** of performing database operations.
-
-### 2) **JDBC (Java Database Connectivity)**
-- JDBC is the *basic* way to connect Java applications to databases.
-- It works well for **small/simple projects**.
-- However, for complex projects, maintaining JDBC code becomes **difficult and costly**.
-- That's why we prefer **ORM tools** in large applications.
-
-### 3) **Hibernate**
-- Hibernate is a popular and **reliable ORM tool**.
-- It simplifies database interactions greatly.
-- Although Hibernate has many features, **this project mainly uses its ORM capabilities**.
-
-### 4) **ORM (Object Relational Mapping)**
-- ORM refers to mapping Java Objects to **Relational Databases** (like MySQL, PostgreSQL).
-- In this project, **PostgreSQL** has been used.
-- ORM helps in achieving tasks **with fewer lines of code** compared to JDBC.
+This project focuses on understanding the concepts of ORM (Object Relational Mapping) in Java and exploring the important aspects it offers.
 
 ---
 
-## 🔧 How Changes Are Made to the Database (Using Hibernate ORM)
+## What I Learned
 
-When using Hibernate, there are **four key steps**:
+### 1) JPA (Jakarta Persistence API)
+- JPA defines a standard set of rules that ORM tools must follow.
+- Before JPA, each ORM tool had different ways of performing database operations, making projects harder to maintain.
+- JPA provides a uniform way to interact with databases across different tools.
 
-### ➡️ 1) Configuration
-- Set up the database connection: type, URL, username, password, etc.
-- Define `hibernate.hbm2ddl.auto` to specify whether to create/update the database schema.
-- Add the annotated entity classes.
-- Typically, configuration is loaded from a `hibernate.cfg.xml` file (default).
+### 2) JDBC (Java Database Connectivity)
+- JDBC is the basic API used to connect Java applications directly to databases.
+- It is suitable for small or simple projects.
+- For complex projects, JDBC becomes hard to maintain and more error-prone, making ORM tools a better choice.
+
+### 3) Hibernate
+- Hibernate is a widely-used, reliable ORM tool.
+- It simplifies database interactions significantly.
+- In this project, Hibernate is used mainly for its ORM capabilities.
+
+### 4) ORM (Object Relational Mapping)
+- ORM is the technique of mapping Java objects to relational database tables.
+- In this project, PostgreSQL is used as the relational database.
+- ORM reduces boilerplate code and makes data handling more efficient compared to JDBC.
+
+---
+
+## How Changes Are Made to the Database Using Hibernate ORM
+
+When using Hibernate, there are four main components involved:
+
+### 1) Configuration
+- Sets up database connection parameters: URL, username, password, and other settings.
+- Specifies options like `hibernate.hbm2ddl.auto` to manage the database schema.
+- Loads the entity classes annotated with JPA annotations.
+- Typically uses a `hibernate.cfg.xml` configuration file.
 
 ```java
 Configuration configuration = new Configuration();
@@ -45,48 +44,38 @@ configuration.configure("hibernate.cfg.xml");
 configuration.addAnnotatedClass(User.class);
 ```
 
----
-
-### ➡️ 2) Session Factory
-- **SessionFactory** is a heavyweight object responsible for creating and managing **sessions**.
-- We create it once and reuse it throughout the application.
+### 2) SessionFactory
+- SessionFactory is a heavyweight object that manages database connections.
+- It is created once and used throughout the application.
 
 ```java
 SessionFactory sessionFactory = configuration.buildSessionFactory();
 ```
 
----
-
-### ➡️ 3) Session
-- A **Session** represents a single-threaded unit of work.
-- It is used for performing **CRUD operations** on the database.
+### 3) Session
+- A Session represents a single unit of work with the database.
+- Used to perform CRUD (Create, Read, Update, Delete) operations.
 
 ```java
 Session session = sessionFactory.openSession();
 ```
 
----
-
-### ➡️ 4) Transaction
-- **Transaction** ensures that database operations are performed in a safe, atomic way.
-- Always **begin a transaction** before making changes, and **commit** after the operation.
+### 4) Transaction
+- Transactions group a set of database operations into a single, atomic action.
+- Always start a transaction before modifying data and commit it after the changes.
 
 ```java
 Transaction transaction = session.beginTransaction();
 
-// Perform database operations here
+// Perform database operations
 
 transaction.commit();
 ```
 
 ---
 
-## ✍️ Final Notes
+## Final Notes
 
-- ORM tools like Hibernate make working with databases **more efficient and less error-prone**.
-- This README reflects my **current understanding** of these concepts.
-- If you find any mistakes or think I could explain something better, **feel free to reach out!** 🤝
-
----
-
-# 🚀 Thank you for reading!
+- ORM tools like Hibernate improve efficiency, maintainability, and safety when interacting with databases.
+- This README represents my current understanding of these concepts.
+- Feedback and suggestions for improvement are welcome.
