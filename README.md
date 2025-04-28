@@ -43,3 +43,50 @@ When using Hibernate, there are **four key steps**:
 Configuration configuration = new Configuration();
 configuration.configure("hibernate.cfg.xml");
 configuration.addAnnotatedClass(User.class);
+```
+
+---
+
+### ➡️ 2) Session Factory
+- **SessionFactory** is a heavyweight object responsible for creating and managing **sessions**.
+- We create it once and reuse it throughout the application.
+
+```java
+SessionFactory sessionFactory = configuration.buildSessionFactory();
+```
+
+---
+
+### ➡️ 3) Session
+- A **Session** represents a single-threaded unit of work.
+- It is used for performing **CRUD operations** on the database.
+
+```java
+Session session = sessionFactory.openSession();
+```
+
+---
+
+### ➡️ 4) Transaction
+- **Transaction** ensures that database operations are performed in a safe, atomic way.
+- Always **begin a transaction** before making changes, and **commit** after the operation.
+
+```java
+Transaction transaction = session.beginTransaction();
+
+// Perform database operations here
+
+transaction.commit();
+```
+
+---
+
+## ✍️ Final Notes
+
+- ORM tools like Hibernate make working with databases **more efficient and less error-prone**.
+- This README reflects my **current understanding** of these concepts.
+- If you find any mistakes or think I could explain something better, **feel free to reach out!** 🤝
+
+---
+
+# 🚀 Thank you for reading!
