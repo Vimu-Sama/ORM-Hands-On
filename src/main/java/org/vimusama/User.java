@@ -21,6 +21,8 @@ public class User {
 
     public User(){
         //for hibernate
+        this.role = "User" ;
+        this.isActive = true;
     }
     public User(int id, String userName, String hashedPassword, String role, Boolean isActive) {
         this.id= id ;
@@ -68,5 +70,10 @@ public class User {
 
     public void setActive(Boolean active) {
         isActive = active;
+    }
+
+    @Override
+    public String toString(){
+        return ("UserId: " + this.id + "\nUsername: " + this.userName + "\nRole: " + this.role + "\nUserActive: " + this.isActive) ;
     }
 }
