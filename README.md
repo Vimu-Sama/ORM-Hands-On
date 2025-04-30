@@ -63,6 +63,7 @@ Session session = sessionFactory.openSession();
 ### 4) Transaction
 - Transactions group a set of database operations into a single, atomic action.
 - Always start a transaction before modifying data and commit it after the changes.
+- Usually transaction is required to create, delete or update, but it is a good practise to make it with 
 
 ```java
 Transaction transaction = session.beginTransaction();
