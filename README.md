@@ -75,6 +75,55 @@ transaction.commit();
 
 ---
 
+## CRUD Operations
+
+### 1) Create
+    The create operation can be performed using hibernate's session by using the session.persist(_class_object_), which enables us to store the data in database.
+    
+    ---java
+    session.persist(a1) ; a1 refers to the object of a class which is mapped to the database
+    ---
+
+### 2) Read
+    The read operation has many methods and also encompasses a logic of lazy fetching and eager fetching, here is some code talking about the same.
+    
+    ---java
+    
+    //id is the required id to search for the object and User.class is the reference to the class we need to send data for
+    session.find(User.class , id) ;               //this performs eager fetching
+    session.byId(User.class).getReference(id) ;  //this performs lazy fetching
+    session.byId(User.class).load(id) ;          //this performs eager fetching
+    
+    ---
+    
+    - lazy fetching - fetching data not on statement but only when there is a requirement for the data being used after the fetch
+    - eager fetching - fetching the data from the start itself without waiting/checking if the data needs to be used or not
+
+### 3) Update
+    The update operation can be performed using session.merge(instanceOFClass), the peculiar thing to note about this is that if the object or here we can say that if entry is not present in the database then it     will create a knew entry otherwise will update the old one or already present one.
+
+    ---java
+    session.persists(a1) ; //a1 - the instance of the required class made in accordance to the database or vice-versa
+    ---
+
+### 4) Remove
+    The remove operation removes the required entry from the database table, and cabe performed as follows:
+
+    ---java
+    
+    session.remove(a1) ; // a1- object from the required class
+    
+    ---
+    
+    best way to go about this:
+    ---java
+
+    User user= session.find(User.class, id);
+    session.remove(user) ;
+    
+    ---
+
+
 ## Final Notes
 
 - ORM tools like Hibernate improve efficiency, maintainability, and safety when interacting with databases.
