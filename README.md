@@ -73,8 +73,6 @@ Transaction transaction = session.beginTransaction();
 transaction.commit();
 ```
 
----
-
 ## CRUD Operations
 
 ### 1) Create
