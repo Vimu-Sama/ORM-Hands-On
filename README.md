@@ -45,7 +45,7 @@ configuration.addAnnotatedClass(User.class);
 ```
 
 ### 2) SessionFactory
-- SessionFactory is a heavyweight object that manages database connections.
+- `SessionFactory` is a heavyweight object that manages database connections.
 - It is created once and used throughout the application.
 
 ```java
@@ -53,7 +53,7 @@ SessionFactory sessionFactory = configuration.buildSessionFactory();
 ```
 
 ### 3) Session
-- A Session represents a single unit of work with the database.
+- A `Session` represents a single unit of work with the database.
 - Used to perform CRUD (Create, Read, Update, Delete) operations.
 
 ```java
@@ -63,7 +63,7 @@ Session session = sessionFactory.openSession();
 ### 4) Transaction
 - Transactions group a set of database operations into a single, atomic action.
 - Always start a transaction before modifying data and commit it after the changes.
-- Usually transaction is required to create, delete or update, but it is a good practise to make it for read operations as well.
+- Although usually required for create, delete, or update, it is good practice to use transactions for read operations as well.
 
 ```java
 Transaction transaction = session.beginTransaction();
@@ -73,57 +73,66 @@ Transaction transaction = session.beginTransaction();
 transaction.commit();
 ```
 
+---
+
 ## CRUD Operations
 
 ### 1) Create
-    The create operation can be performed using hibernate's session by using the session.persist(_class_object_), which enables us to store the data in database.
-    
-    ---java
-    session.persist(a1) ; a1 refers to the object of a class which is mapped to the database
-    ---
+
+The create operation can be performed using Hibernate's session by calling `session.persist()`, which stores the data in the database.
+
+```java
+session.persist(a1); // a1 is an instance of a class mapped to the database
+```
+
+---
 
 ### 2) Read
-    The read operation has many methods and also encompasses a logic of lazy fetching and eager fetching, here is some code talking about the same.
-    
-    ---java
-    
-    //id is the required id to search for the object and User.class is the reference to the class we need to send data for
-    session.find(User.class , id) ;               //this performs eager fetching
-    session.byId(User.class).getReference(id) ;  //this performs lazy fetching
-    session.byId(User.class).load(id) ;          //this performs eager fetching
-    
-    ---
-    
-    - lazy fetching - fetching data not on statement but only when there is a requirement for the data being used after the fetch
-    - eager fetching - fetching the data from the start itself without waiting/checking if the data needs to be used or not
+
+Read operations can use different methods and also involve lazy vs. eager fetching:
+
+```java
+// id is the primary key to search, User.class is the entity class
+session.find(User.class, id);                // Eager fetching
+session.byId(User.class).getReference(id);   // Lazy fetching
+session.byId(User.class).load(id);           // Eager fetching
+```
+
+- **Lazy fetching**: Data is fetched only when actually accessed.
+- **Eager fetching**: Data is fetched immediately when the query is executed.
+
+---
 
 ### 3) Update
-    The update operation can be performed using session.merge(instanceOFClass), the peculiar thing to note about this is that if the object or here we can say that if entry is not present in the database then it     will create a knew entry otherwise will update the old one or already present one.
 
-    ---java
-    session.persists(a1) ; //a1 - the instance of the required class made in accordance to the database or vice-versa
-    ---
+The update operation is typically performed using `session.merge()`.  
+It will update an existing entry if found; otherwise, it may create a new one.
+
+```java
+session.merge(a1); // a1 is the instance of the entity class
+```
+
+---
 
 ### 4) Remove
-    The remove operation removes the required entry from the database table, and cabe performed as follows:
 
-    ---java
-    
-    session.remove(a1) ; // a1- object from the required class
-    
-    ---
-    
-    best way to go about this:
-    ---java
+The remove operation deletes an entry from the database:
 
-    User user= session.find(User.class, id);
-    session.remove(user) ;
-    
-    ---
+```java
+session.remove(a1); // a1 is an instance of the entity class
+```
 
+**Best practice:**
+
+```java
+User user = session.find(User.class, id);
+session.remove(user);
+```
+
+---
 
 ## Final Notes
 
 - ORM tools like Hibernate improve efficiency, maintainability, and safety when interacting with databases.
 - This README represents my current understanding of these concepts.
-- Feedback and suggestions for improvement are welcome.
+- Feedback and suggestions for improvement are welcome!
